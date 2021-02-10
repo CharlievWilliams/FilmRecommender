@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "522608451520",
+    "firebase_url": "https://filmrecommender-c4c90.firebaseio.com",
+    "project_id": "filmrecommender-c4c90",
+    "storage_bucket": "filmrecommender-c4c90.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:522608451520:android:9c1188b67d70df8be8f225",
+        "android_client_info": {
+          "package_name": "com.charlievwwilliams.filmrecommender"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "522608451520-avuupf3gq32jhhdf5s0fsnhrqdi0v3o0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLACtKZtWzD_R2yb0cAQte4zWdHxcJcHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "522608451520-avuupf3gq32jhhdf5s0fsnhrqdi0v3o0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
