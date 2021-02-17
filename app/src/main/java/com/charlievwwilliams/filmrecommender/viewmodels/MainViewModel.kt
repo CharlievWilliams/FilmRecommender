@@ -8,12 +8,12 @@ import com.charlievwwilliams.filmrecommender.extensions.Event
 import com.charlievwwilliams.filmrecommender.model.search.Search
 import com.charlievwwilliams.filmrecommender.utils.Constants.Companion.API_KEY
 import com.charlievwwilliams.filmrecommender.viewstates.MainNavigationEffect
-import com.charlievwwilliams.filmrecommender.viewstates.MainNavigationEffect.NavigateToCalculatorEffect
+import com.charlievwwilliams.filmrecommender.viewstates.MainNavigationEffect.NavigateToResultEffect
 import com.charlievwwilliams.filmrecommender.viewstates.MainViewEffect
 import com.charlievwwilliams.filmrecommender.viewstates.MainViewEffect.FilmSearchedEffect
+import com.charlievwwilliams.filmrecommender.viewstates.MainViewEffect.OpenCameraEffect
 import com.charlievwwilliams.filmrecommender.viewstates.MainViewEvent
-import com.charlievwwilliams.filmrecommender.viewstates.MainViewEvent.ScreenLoadEvent
-import com.charlievwwilliams.filmrecommender.viewstates.MainViewEvent.SplashButtonPressedEvent
+import com.charlievwwilliams.filmrecommender.viewstates.MainViewEvent.*
 import com.charlievwwilliams.filmrecommender.viewstates.MainViewState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -31,39 +31,29 @@ class MainViewModel : ViewModel() {
     fun onEvent(event: MainViewEvent) {
         when (event) {
             is ScreenLoadEvent -> onScreenLoad()
-            is SplashButtonPressedEvent -> navigationEffect.value =
-                Event(NavigateToCalculatorEffect)
+            is TakePicturePressedEvent -> viewEffect.value = Event(OpenCameraEffect)
+            is SubmitPressedEvent -> searchFilm(event.title)
+            is ItemPressedEvent -> navigationEffect.value = Event(NavigateToResultEffect(event.id))
         }
     }
 
     private fun onScreenLoad() {
-        onScreenLoadSuccess()
+        viewState.value = MainViewState(isLoading = false)
     }
 
-    fun tempFunction(input: String) {
-        // IO (Network request), MainThread (UI), Default (Heavy Computation)
+    private fun searchFilm(input: String) {
+        viewState.value = MainViewState(isLoading = true)
         CoroutineScope(IO).launch {
             val result = getResultFromAPI(input)
-            // Go to main for UI Operations
             withContext(Main) {
-                tempFunctionTwo(result)
+                viewEffect.value = Event(FilmSearchedEffect(result))
+                viewState.value = MainViewState(isLoading = false)
             }
         }
     }
 
-    private fun tempFunctionTwo(result: Search) {
-        viewEffect.value = Event(FilmSearchedEffect(result))
-    }
-
-    private fun onScreenLoadSuccess() {
-        viewState.value = MainViewState(
-            isLoading = false
-        )
-    }
-
     private suspend fun getResultFromAPI(input: String): Search {
-        delay(1000)
-        /*return RetrofitInstance.Api.getMovieDetails(API_KEY)*/
+        delay(500)
         return RetrofitInstance.Api.searchMovies(API_KEY, "en-US", input, "1", "true")
     }
 

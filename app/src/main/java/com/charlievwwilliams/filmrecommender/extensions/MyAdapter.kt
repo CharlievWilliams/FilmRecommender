@@ -3,41 +3,51 @@ package com.charlievwwilliams.filmrecommender.extensions
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.charlievwwilliams.filmrecommender.R
+import com.squareup.picasso.Picasso
 
-class MyAdapter(private val dataSet: Array<String>) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
+class MyAdapter(
+    private val titleArray: Array<String>,
+    private val descriptionArray: Array<String>,
+    private val imageArray: Array<String>,
+    private val idArray: Array<String>,
+    private val listener: OnItemClickListener
+) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
-    /**
-     * Provide a reference to the type of views that you are using
-     * (custom ViewHolder).
-     */
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
         val textView: TextView = view.findViewById(R.id.textView)
+        val textView2: TextView = view.findViewById(R.id.textView2)
+        val imageView: ImageView = view.findViewById(R.id.imageView)
 
         init {
-            // Define click listener for the ViewHolder's View.
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(view: View?) {
+            listener.onItemClick(idArray[adapterPosition])
         }
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.text_row_item, viewGroup, false)
+            .inflate(R.layout.film_row_item, viewGroup, false)
 
         return ViewHolder(view)
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
-        viewHolder.textView.text = dataSet[position]
+        viewHolder.textView.text = titleArray[position]
+        viewHolder.textView2.text = descriptionArray[position]
+        Picasso.get().load("https://image.tmdb.org/t/p/w500" + imageArray[position])
+            .into(viewHolder.imageView)
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
-    override fun getItemCount() = dataSet.size
+    override fun getItemCount() = titleArray.size
 
+    interface OnItemClickListener {
+        fun onItemClick(id: String)
+    }
 }

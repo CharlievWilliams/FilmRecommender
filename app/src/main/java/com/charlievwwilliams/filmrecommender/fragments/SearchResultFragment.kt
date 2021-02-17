@@ -4,8 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.charlievwwilliams.filmrecommender.databinding.FragmentMainBinding
+import com.charlievwwilliams.filmrecommender.databinding.FragmentSearchResultBinding
 import com.charlievwwilliams.filmrecommender.extensions.observeEvent
 import com.charlievwwilliams.filmrecommender.viewmodels.MainViewModel
 import com.charlievwwilliams.filmrecommender.viewstates.MainViewEvent.ScreenLoadEvent
@@ -13,7 +14,7 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class SearchResultFragment : Fragment() {
 
-    private var _binding: FragmentMainBinding? = null
+    private var _binding: FragmentSearchResultBinding? = null
 
     private val binding get() = _binding!!
 
@@ -24,7 +25,7 @@ class SearchResultFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchResultBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -38,28 +39,27 @@ class SearchResultFragment : Fragment() {
     }
 
     private fun setupViewState() {
-        viewModel.viewState().observe(viewLifecycleOwner, {
-
-        })
+        arguments?.let {
+            val safeArgs = SearchResultFragmentArgs.fromBundle(it)
+            viewModel.viewState().observe(viewLifecycleOwner, {
+                Toast.makeText(requireContext(), safeArgs.id, Toast.LENGTH_LONG).show()
+            })
+        }
     }
 
     private fun setupViewEvents() {
-        viewModel.onEvent(ScreenLoadEvent)
+
     }
 
     private fun setupViewEffects() {
         viewModel.getViewEffect().observeEvent(viewLifecycleOwner, {
-            when (it) {
-                // TODO: Add to this
-            }
+
         })
     }
 
     private fun setupNavigationEffects() {
         viewModel.getNavigationEffect().observeEvent(viewLifecycleOwner, {
-            when (it) {
-                // TODO: Add to this
-            }
+
         })
     }
 }

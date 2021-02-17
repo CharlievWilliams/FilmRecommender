@@ -16,9 +16,7 @@ class SearchResultViewModel : ViewModel() {
     private val viewEffect = MutableLiveData<Event<MainViewEffect>>()
 
     fun onEvent(event: MainViewEvent) {
-        when (event) {
 
-        }
     }
 
     private fun onScreenLoad() {

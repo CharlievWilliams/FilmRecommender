@@ -8,7 +8,19 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.charlievwwilliams.filmrecommender.fragments.MainFragment"
-        android:label="MainFragment"
-        tools:layout="@layout/fragment_main" />
+        android:label="Search"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_searchResultFragment"
+            app:destination="@id/searchResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.charlievwwilliams.filmrecommender.fragments.SearchResultFragment"
+        android:label="Your Film">
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
 
 </navigation>
