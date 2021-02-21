@@ -78,13 +78,18 @@ class SearchResultFragment : Fragment() {
     }
 
     private fun setupLayout(input: Details) {
-        binding.titleTextView.text = input.title
-        binding.descriptionTextView.text = input.overview
-        binding.genreTextView.text = input.genres[0].name
-        Picasso.get().load("https://image.tmdb.org/t/p/w500" + input.poster_path)
-            .into(binding.posterImageView)
-        Picasso.get().load("https://image.tmdb.org/t/p/original" + input.backdrop_path)
-            .into(binding.backdropImageView)
+        with(binding) {
+            titleTextView.text = input.title
+            descriptionTextView.text = input.overview
+            genreTextView.text = input.genres[0].name
+            voteTextView.text = "Rating: " + input.vote_average.toString()
+            runtimeTextView.text = input.runtime.toString() + " Minutes"
+            releaseDateTextView.text = "Released " + input.release_date
+            Picasso.get().load("https://image.tmdb.org/t/p/w500" + input.poster_path)
+                .into(posterImageView)
+            Picasso.get().load("https://image.tmdb.org/t/p/original" + input.backdrop_path)
+                .into(backdropImageView)
+        }
     }
 
     private fun navigateToRecommendations(id: String) {
