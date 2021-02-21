@@ -65,13 +65,16 @@ class MainFragment : Fragment(), MyAdapter.OnItemClickListener {
     }
 
     private fun setupViewState() {
+        binding.titleEditText.requestFocus()
         viewModel.viewState().observe(viewLifecycleOwner, {
-            binding.takePictureButton.setOnClickListener {
+            binding.searchButton.setOnClickListener {
                 viewModel.onEvent(TakePicturePressedEvent)
             }
-            binding.submitButton.setOnClickListener {
-                binding.titleEditText.onEditorAction(EditorInfo.IME_ACTION_DONE)
-                viewModel.onEvent(SubmitPressedEvent(binding.titleEditText.text.toString()))
+            binding.titleEditText.setOnEditorActionListener { _, action, _ ->
+                if (action == EditorInfo.IME_ACTION_DONE) {
+                    viewModel.onEvent(SubmitPressedEvent(binding.titleEditText.text.toString()))
+                }
+                false
             }
             if (it.isLoading) binding.loading.show() else binding.loading.hide()
         })

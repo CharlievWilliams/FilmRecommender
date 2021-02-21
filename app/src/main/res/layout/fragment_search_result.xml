@@ -36,14 +36,15 @@
         tools:text="Title" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/descriptionTextView"
+        android:id="@+id/genreTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toStartOf="@id/posterImageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleTextView"
-        tools:text="This is a description of the film. Here we look to see if everything fits correctly." />
+        tools:text="Horror" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/posterImageView"
@@ -53,13 +54,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/titleTextView" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/descriptionTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/posterImageView"
+        tools:text="This is a description of the film. Here we look to see if everything fits correctly." />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/getRecommendationsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:text="Get Recommendations"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

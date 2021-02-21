@@ -77,18 +77,20 @@ class SearchResultFragment : Fragment() {
         })
     }
 
-
     private fun setupLayout(input: Details) {
         binding.titleTextView.text = input.title
         binding.descriptionTextView.text = input.overview
+        binding.genreTextView.text = input.genres[0].name
         Picasso.get().load("https://image.tmdb.org/t/p/w500" + input.poster_path)
             .into(binding.posterImageView)
         Picasso.get().load("https://image.tmdb.org/t/p/original" + input.backdrop_path)
             .into(binding.backdropImageView)
-        viewModel.onEvent(ScreenLoadEvent)
     }
 
     private fun navigateToRecommendations(id: String) {
-        // TODO: Navigate to recommendations screen
+        findNavController().navigate(
+            R.id.action_searchResultFragment_to_recommendationsFragment,
+            SearchResultFragmentArgs(id).toBundle()
+        )
     }
 }

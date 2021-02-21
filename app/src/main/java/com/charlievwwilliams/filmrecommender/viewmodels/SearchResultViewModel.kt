@@ -22,7 +22,6 @@ class SearchResultViewModel : ViewModel() {
 
     fun onEvent(event: SearchResultViewEvent) {
         when (event) {
-            is ScreenLoadEvent -> onScreenLoad()
             is ScreenLoadingEvent -> searchFilm(event.id)
             is GetRecommendationsPressedEvent -> navigationEffect.value = Event(
                 NavigateToRecommendationsEffect(event.id)
@@ -30,17 +29,13 @@ class SearchResultViewModel : ViewModel() {
         }
     }
 
-    private fun onScreenLoad() {
-        viewState.value = SearchResultViewState(isLoading = false, "")
-    }
-
     private fun searchFilm(input: String) {
         viewState.value = SearchResultViewState(isLoading = true, "")
         CoroutineScope(Dispatchers.IO).launch {
             val result = getResultFromAPI(input)
             withContext(Dispatchers.Main) {
-                viewEffect.value = Event(FilmSearchedEffect(result))
                 viewState.value = SearchResultViewState(isLoading = false, result.imdb_id)
+                viewEffect.value = Event(FilmSearchedEffect(result))
             }
         }
     }

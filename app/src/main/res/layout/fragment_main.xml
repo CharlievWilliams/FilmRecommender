@@ -16,51 +16,37 @@
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/titleEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:imeOptions="actionDone"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:width="200dp"
+        android:focusedByDefault="true"
         android:hint="Film title"
+        android:imeOptions="actionDone"
         android:inputType="text"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/submitButton"
+        app:layout_constraintEnd_toStartOf="@id/searchButton"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/submitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        app:layout_constraintBottom_toBottomOf="@id/titleEditText"
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/searchButton"
+        android:layout_width="45dp"
+        android:layout_marginEnd="10dp"
+        android:layout_height="45dp"
+        app:layout_constraintStart_toEndOf="@id/titleEditText"
+        app:layout_constraintTop_toTopOf="@id/titleEditText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/titleEditText" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Or"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleEditText" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/takePictureButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Take Picture"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView" />
+        android:src="@android:drawable/ic_menu_camera"
+        android:text="Button"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/takePictureButton" />
+        app:layout_constraintTop_toBottomOf="@id/titleEditText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,7 +17,20 @@
     <fragment
         android:id="@+id/searchResultFragment"
         android:name="com.charlievwwilliams.filmrecommender.fragments.SearchResultFragment"
-        android:label="Your Film">
+        android:label="Your Film"
+        tools:layout="@layout/fragment_search_result">
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_searchResultFragment_to_recommendationsFragment"
+            app:destination="@id/recommendationsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recommendationsFragment"
+        android:name="com.charlievwwilliams.filmrecommender.fragments.RecommendationsFragment"
+        android:label="Recommendations"
+        tools:layout="@layout/fragment_recommendations">
         <argument
             android:name="id"
             app:argType="string" />

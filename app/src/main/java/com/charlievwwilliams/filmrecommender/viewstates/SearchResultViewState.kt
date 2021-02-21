@@ -8,7 +8,6 @@ data class SearchResultViewState(
 )
 
 sealed class SearchResultViewEvent {
-    object ScreenLoadEvent : SearchResultViewEvent()
     data class ScreenLoadingEvent(
         val id: String
     ) : SearchResultViewEvent()

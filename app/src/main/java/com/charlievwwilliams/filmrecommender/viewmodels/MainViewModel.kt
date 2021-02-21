@@ -43,8 +43,8 @@ class MainViewModel : ViewModel() {
         CoroutineScope(IO).launch {
             val result = getResultFromAPI(input)
             withContext(Main) {
-                viewEffect.value = Event(FilmSearchedEffect(result))
                 viewState.value = MainViewState(isLoading = false)
+                viewEffect.value = Event(FilmSearchedEffect(result))
             }
         }
     }
