@@ -1,22 +1,28 @@
 package com.charlievwwilliams.filmrecommender.viewstates
 
-import com.charlievwwilliams.filmrecommender.model.search.Search
+import com.charlievwwilliams.filmrecommender.model.movies.details.Details
 
 data class SearchResultViewState(
-    val isLoading: Boolean = true
+    val isLoading: Boolean = true,
+    val imdbID: String
 )
 
 sealed class SearchResultViewEvent {
     object ScreenLoadEvent : SearchResultViewEvent()
+    data class ScreenLoadingEvent(
+        val id: String
+    ) : SearchResultViewEvent()
+
+    data class GetRecommendationsPressedEvent(val id: String) : SearchResultViewEvent()
 }
 
 sealed class SearchResultViewEffect {
     data class FilmSearchedEffect(
-        val results: Search
+        val results: Details
     ) : SearchResultViewEffect()
 }
 
 
 sealed class SearchResultNavigationEffect {
-    object NavigateToRecommendationsEffect : SearchResultNavigationEffect()
+    data class NavigateToRecommendationsEffect(val id: String) : SearchResultNavigationEffect()
 }

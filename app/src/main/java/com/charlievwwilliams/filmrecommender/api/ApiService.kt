@@ -17,7 +17,7 @@ interface ApiService {
         @Query("include_adult") includeAdult: String
     ): Search
 
-    @GET("https://api.themoviedb.org/3/movie/")
+    @GET("https://api.themoviedb.org/3/movie/{id}")
     suspend fun getMovieDetails(
         @Path("id") id: String,
         @Query("api_key") key: String,
