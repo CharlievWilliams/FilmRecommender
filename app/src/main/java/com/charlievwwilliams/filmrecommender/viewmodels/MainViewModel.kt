@@ -51,7 +51,7 @@ class MainViewModel : ViewModel() {
 
     private suspend fun getResultFromAPI(input: String): Search {
         delay(500)
-        return RetrofitInstance.Api.searchMovies(API_KEY, "en-US", input, "1", "true")
+        return RetrofitInstance.filmApi.searchMovies(API_KEY, "en-US", input, "1", "true")
     }
 
     fun viewState(): LiveData<MainViewState> = viewState

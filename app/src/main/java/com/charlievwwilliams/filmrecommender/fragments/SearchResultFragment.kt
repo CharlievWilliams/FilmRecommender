@@ -10,6 +10,8 @@ import com.charlievwwilliams.filmrecommender.R
 import com.charlievwwilliams.filmrecommender.databinding.FragmentSearchResultBinding
 import com.charlievwwilliams.filmrecommender.extensions.observeEvent
 import com.charlievwwilliams.filmrecommender.model.movies.details.Details
+import com.charlievwwilliams.filmrecommender.utils.Constants.Companion.FILM_IMAGE_ORIGINAL
+import com.charlievwwilliams.filmrecommender.utils.Constants.Companion.FILM_IMAGE_SMALL
 import com.charlievwwilliams.filmrecommender.viewmodels.SearchResultViewModel
 import com.charlievwwilliams.filmrecommender.viewstates.SearchResultNavigationEffect.NavigateToRecommendationsEffect
 import com.charlievwwilliams.filmrecommender.viewstates.SearchResultViewEffect.FilmSearchedEffect
@@ -48,7 +50,7 @@ class SearchResultFragment : Fragment() {
             if (viewState.isLoading) binding.loading.show() else binding.loading.hide()
             binding.getRecommendationsButton.setOnClickListener {
                 viewModel.onEvent(
-                    GetRecommendationsPressedEvent(viewModel.viewState().value?.imdbID ?: "")
+                    GetRecommendationsPressedEvent(viewModel.viewState().value?.id ?: "")
                 )
             }
         })
@@ -85,9 +87,9 @@ class SearchResultFragment : Fragment() {
             voteTextView.text = "Rating: " + input.vote_average.toString()
             runtimeTextView.text = input.runtime.toString() + " Minutes"
             releaseDateTextView.text = "Released " + input.release_date
-            Picasso.get().load("https://image.tmdb.org/t/p/w500" + input.poster_path)
+            Picasso.get().load(FILM_IMAGE_SMALL + input.poster_path)
                 .into(posterImageView)
-            Picasso.get().load("https://image.tmdb.org/t/p/original" + input.backdrop_path)
+            Picasso.get().load(FILM_IMAGE_ORIGINAL + input.backdrop_path)
                 .into(backdropImageView)
         }
     }

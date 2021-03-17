@@ -63,8 +63,8 @@ dependencies {
     implementation 'android.arch.lifecycle:viewmodel:1.1.1'
 
     // Nav Graph
-    implementation "androidx.navigation:navigation-fragment-ktx:2.3.3"
-    implementation "androidx.navigation:navigation-ui-ktx:2.3.3"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.4"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.4"
 
     // Koin
     implementation "org.koin:koin-android:2.0.1"

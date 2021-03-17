@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.charlievwwilliams.filmrecommender.api.RetrofitInstance
 import com.charlievwwilliams.filmrecommender.extensions.Event
 import com.charlievwwilliams.filmrecommender.model.movies.details.Details
-import com.charlievwwilliams.filmrecommender.model.search.Search
 import com.charlievwwilliams.filmrecommender.utils.Constants
 import com.charlievwwilliams.filmrecommender.viewstates.*
 import com.charlievwwilliams.filmrecommender.viewstates.SearchResultNavigationEffect.*
@@ -34,7 +33,7 @@ class SearchResultViewModel : ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             val result = getResultFromAPI(input)
             withContext(Dispatchers.Main) {
-                viewState.value = SearchResultViewState(isLoading = false, result.imdb_id)
+                viewState.value = SearchResultViewState(isLoading = false, result.id.toString())
                 viewEffect.value = Event(FilmSearchedEffect(result))
             }
         }
@@ -42,7 +41,7 @@ class SearchResultViewModel : ViewModel() {
 
     private suspend fun getResultFromAPI(input: String): Details {
         delay(500)
-        return RetrofitInstance.Api.getMovieDetails(input, Constants.API_KEY, "en-US")
+        return RetrofitInstance.filmApi.getMovieDetails(input, Constants.API_KEY, "en-US")
     }
 
     fun viewState(): LiveData<SearchResultViewState> = viewState

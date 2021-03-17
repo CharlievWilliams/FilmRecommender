@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.charlievwwilliams.filmrecommender.R
+import com.charlievwwilliams.filmrecommender.utils.Constants.Companion.FILM_IMAGE_SMALL
 import com.squareup.picasso.Picasso
 
 class MyAdapter(
@@ -41,7 +42,7 @@ class MyAdapter(
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.textView.text = titleArray[position]
         viewHolder.textView2.text = descriptionArray[position]
-        Picasso.get().load("https://image.tmdb.org/t/p/w500" + imageArray[position])
+        Picasso.get().load(FILM_IMAGE_SMALL + imageArray[position])
             .into(viewHolder.imageView)
     }
 

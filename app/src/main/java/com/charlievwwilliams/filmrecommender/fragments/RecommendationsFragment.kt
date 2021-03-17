@@ -9,6 +9,12 @@ import com.charlievwwilliams.filmrecommender.databinding.FragmentRecommendations
 import com.charlievwwilliams.filmrecommender.extensions.observeEvent
 import com.charlievwwilliams.filmrecommender.model.movies.details.Details
 import com.charlievwwilliams.filmrecommender.viewmodels.RecommendationsViewModel
+import com.charlievwwilliams.filmrecommender.viewstates.RecommendationsViewEffect
+import com.charlievwwilliams.filmrecommender.viewstates.RecommendationsViewEffect.ScreenLoadedEffect
+import com.charlievwwilliams.filmrecommender.viewstates.RecommendationsViewEvent
+import com.charlievwwilliams.filmrecommender.viewstates.RecommendationsViewEvent.ScreenLoadingEvent
+import com.charlievwwilliams.filmrecommender.viewstates.SearchResultViewEffect
+import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class RecommendationsFragment : Fragment() {
@@ -46,13 +52,15 @@ class RecommendationsFragment : Fragment() {
     private fun setupViewEvents() {
         arguments?.let {
             val safeArgs = SearchResultFragmentArgs.fromBundle(it)
-
+            viewModel.onEvent(ScreenLoadingEvent(safeArgs.id))
         }
     }
 
     private fun setupViewEffects() {
         viewModel.getViewEffect().observeEvent(viewLifecycleOwner, {
-
+            when (it) {
+                is ScreenLoadedEffect -> setupLayout(it.title)
+            }
         })
     }
 
@@ -62,7 +70,7 @@ class RecommendationsFragment : Fragment() {
         })
     }
 
-    private fun setupLayout(input: Details) {
-
+    private fun setupLayout(input: String) {
+        binding.textView.text = input
     }
 }

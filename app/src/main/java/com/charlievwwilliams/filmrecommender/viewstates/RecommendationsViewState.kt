@@ -5,12 +5,16 @@ data class RecommendationsViewState(
 )
 
 sealed class RecommendationsViewEvent {
-    object ScreenLoadEvent : RecommendationsViewEvent()
+    data class ScreenLoadingEvent(
+        val id: String
+    ) : RecommendationsViewEvent()
 
 }
 
 sealed class RecommendationsViewEffect {
-
+    data class ScreenLoadedEffect(
+        val title: String
+    ) : RecommendationsViewEffect()
 }
 
 

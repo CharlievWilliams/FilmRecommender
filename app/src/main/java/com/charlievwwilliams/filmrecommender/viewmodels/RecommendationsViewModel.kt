@@ -5,12 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.charlievwwilliams.filmrecommender.api.RetrofitInstance
 import com.charlievwwilliams.filmrecommender.extensions.Event
+import com.charlievwwilliams.filmrecommender.model.django.Django
 import com.charlievwwilliams.filmrecommender.model.movies.details.Details
 import com.charlievwwilliams.filmrecommender.utils.Constants
-import com.charlievwwilliams.filmrecommender.viewstates.RecommendationsNavigationEffect
-import com.charlievwwilliams.filmrecommender.viewstates.RecommendationsViewEffect
-import com.charlievwwilliams.filmrecommender.viewstates.RecommendationsViewState
-import com.charlievwwilliams.filmrecommender.viewstates.SearchResultViewEvent
+import com.charlievwwilliams.filmrecommender.viewstates.*
+import com.charlievwwilliams.filmrecommender.viewstates.RecommendationsViewEffect.ScreenLoadedEffect
+import com.charlievwwilliams.filmrecommender.viewstates.RecommendationsViewEvent.ScreenLoadingEvent
 import kotlinx.coroutines.*
 
 class RecommendationsViewModel : ViewModel() {
@@ -19,29 +19,36 @@ class RecommendationsViewModel : ViewModel() {
     private val navigationEffect = MutableLiveData<Event<RecommendationsNavigationEffect>>()
     private val viewEffect = MutableLiveData<Event<RecommendationsViewEffect>>()
 
-    fun onEvent(event: SearchResultViewEvent) {
+    fun onEvent(event: RecommendationsViewEvent) {
         when (event) {
-
+            is ScreenLoadingEvent -> retrieveRecommendations(event.id)
         }
     }
 
-    private fun onScreenLoad() {
-        viewState.value = RecommendationsViewState(isLoading = false)
-    }
-
-    private fun searchFilm(input: String) {
+    private fun retrieveRecommendations(input: String) {
         viewState.value = RecommendationsViewState(isLoading = true)
         CoroutineScope(Dispatchers.IO).launch {
-            val result = getResultFromAPI(input)
+            val result = getResultFromDjango(input)
+            val recommendedFilms = mutableListOf<Details>()
+            // TODO: Pass back film details through Django for fewer API requests
+            for (item in result.id) {
+                recommendedFilms.add(getResultFromAPI(item))
+            }
             withContext(Dispatchers.Main) {
                 viewState.value = RecommendationsViewState(isLoading = false)
+                viewEffect.value = Event(ScreenLoadedEffect(recommendedFilms[2].title)) // TODO: Do something with these
             }
         }
     }
 
+    private suspend fun getResultFromDjango(input: String): Django {
+        delay(500)
+        return RetrofitInstance.djangoApi.getRecommendations(input)
+    }
+
     private suspend fun getResultFromAPI(input: String): Details {
         delay(500)
-        return RetrofitInstance.Api.getMovieDetails(input, Constants.API_KEY, "en-US")
+        return RetrofitInstance.filmApi.getMovieDetails(input, Constants.API_KEY, "en-US")
     }
 
     fun viewState(): LiveData<RecommendationsViewState> = viewState

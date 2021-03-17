@@ -4,7 +4,7 @@ import com.charlievwwilliams.filmrecommender.model.movies.details.Details
 
 data class SearchResultViewState(
     val isLoading: Boolean = true,
-    val imdbID: String
+    val id: String
 )
 
 sealed class SearchResultViewEvent {
