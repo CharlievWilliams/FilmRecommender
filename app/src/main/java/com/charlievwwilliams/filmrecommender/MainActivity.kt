@@ -1,7 +1,7 @@
 package com.charlievwwilliams.filmrecommender
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.charlievwwilliams.filmrecommender.databinding.ActivityMainBinding
@@ -24,8 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupUI() {
         val navController = findNavController(R.id.nav_host_fragment)
-        val toolbar = binding.toolbar
-        toolbar.setupWithNavController(navController)
+        binding.toolbar.setupWithNavController(navController)
     }
 
 }

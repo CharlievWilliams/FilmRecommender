@@ -7,10 +7,14 @@ import com.charlievwwilliams.filmrecommender.api.RetrofitInstance
 import com.charlievwwilliams.filmrecommender.extensions.Event
 import com.charlievwwilliams.filmrecommender.model.movies.details.Details
 import com.charlievwwilliams.filmrecommender.utils.Constants
-import com.charlievwwilliams.filmrecommender.viewstates.*
-import com.charlievwwilliams.filmrecommender.viewstates.SearchResultNavigationEffect.*
-import com.charlievwwilliams.filmrecommender.viewstates.SearchResultViewEffect.*
-import com.charlievwwilliams.filmrecommender.viewstates.SearchResultViewEvent.*
+import com.charlievwwilliams.filmrecommender.viewstates.SearchResultNavigationEffect
+import com.charlievwwilliams.filmrecommender.viewstates.SearchResultNavigationEffect.NavigateToRecommendationsEffect
+import com.charlievwwilliams.filmrecommender.viewstates.SearchResultViewEffect
+import com.charlievwwilliams.filmrecommender.viewstates.SearchResultViewEffect.FilmSearchedEffect
+import com.charlievwwilliams.filmrecommender.viewstates.SearchResultViewEvent
+import com.charlievwwilliams.filmrecommender.viewstates.SearchResultViewEvent.GetRecommendationsPressedEvent
+import com.charlievwwilliams.filmrecommender.viewstates.SearchResultViewEvent.ScreenLoadingEvent
+import com.charlievwwilliams.filmrecommender.viewstates.SearchResultViewState
 import kotlinx.coroutines.*
 
 class SearchResultViewModel : ViewModel() {
@@ -22,9 +26,8 @@ class SearchResultViewModel : ViewModel() {
     fun onEvent(event: SearchResultViewEvent) {
         when (event) {
             is ScreenLoadingEvent -> searchFilm(event.id)
-            is GetRecommendationsPressedEvent -> navigationEffect.value = Event(
-                NavigateToRecommendationsEffect(event.id)
-            )
+            is GetRecommendationsPressedEvent -> navigationEffect.value =
+                Event(NavigateToRecommendationsEffect(event.id))
         }
     }
 

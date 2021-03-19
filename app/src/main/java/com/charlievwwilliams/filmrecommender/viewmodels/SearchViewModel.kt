@@ -19,7 +19,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainViewModel : ViewModel() {
+class SearchViewModel : ViewModel() {
 
     private val viewState: MutableLiveData<MainViewState> = MutableLiveData()
     private val navigationEffect = MutableLiveData<Event<MainNavigationEffect>>()

@@ -5,6 +5,7 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -14,35 +15,36 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.content.FileProvider
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.charlievwwilliams.filmrecommender.R
-import com.charlievwwilliams.filmrecommender.databinding.FragmentMainBinding
+import com.charlievwwilliams.filmrecommender.databinding.FragmentSearchBinding
 import com.charlievwwilliams.filmrecommender.extensions.MyAdapter
 import com.charlievwwilliams.filmrecommender.extensions.observeEvent
 import com.charlievwwilliams.filmrecommender.model.search.Search
-import com.charlievwwilliams.filmrecommender.viewmodels.MainViewModel
+import com.charlievwwilliams.filmrecommender.viewmodels.SearchViewModel
 import com.charlievwwilliams.filmrecommender.viewstates.MainNavigationEffect.NavigateToResultEffect
 import com.charlievwwilliams.filmrecommender.viewstates.MainViewEffect.FilmSearchedEffect
 import com.charlievwwilliams.filmrecommender.viewstates.MainViewEffect.OpenCameraEffect
 import com.charlievwwilliams.filmrecommender.viewstates.MainViewEvent.*
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
+import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
+class SearchFragment : Fragment(), MyAdapter.OnItemClickListener {
 
-class MainFragment : Fragment(), MyAdapter.OnItemClickListener {
-
-    private var _binding: FragmentMainBinding? = null
+    private var _binding: FragmentSearchBinding? = null
 
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: SearchViewModel
 
     private lateinit var currentPhotoPath: String
 
@@ -51,7 +53,7 @@ class MainFragment : Fragment(), MyAdapter.OnItemClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -73,6 +75,7 @@ class MainFragment : Fragment(), MyAdapter.OnItemClickListener {
             binding.titleEditText.setOnEditorActionListener { _, action, _ ->
                 if (action == EditorInfo.IME_ACTION_DONE) {
                     viewModel.onEvent(SubmitPressedEvent(binding.titleEditText.text.toString()))
+                    binding.motionLayout.transitionToEnd()
                 }
                 false
             }
@@ -178,11 +181,19 @@ class MainFragment : Fragment(), MyAdapter.OnItemClickListener {
     }
 
     private fun extractTextFromImage(bitmap: Bitmap) {
-        val image = FirebaseVisionImage.fromBitmap(bitmap)
+        // Rotate image for portrait text recognition
+        val matrix = Matrix();
+        matrix.postRotate(90F);
+        val rotatedImg = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true);
+        bitmap.recycle();
+
+        val image = FirebaseVisionImage.fromBitmap(rotatedImg)
         val detector = FirebaseVision.getInstance().onDeviceTextRecognizer
 
         detector.processImage(image).addOnSuccessListener { firebaseVisionText ->
             viewModel.onEvent(SubmitPressedEvent(firebaseVisionText.text))
+            binding.motionLayout.transitionToEnd()
+            binding.titleEditText.setText(firebaseVisionText.text)
         }.addOnFailureListener { }
     }
 

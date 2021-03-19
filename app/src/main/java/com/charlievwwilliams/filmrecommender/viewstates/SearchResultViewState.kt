@@ -21,7 +21,6 @@ sealed class SearchResultViewEffect {
     ) : SearchResultViewEffect()
 }
 
-
 sealed class SearchResultNavigationEffect {
     data class NavigateToRecommendationsEffect(val id: String) : SearchResultNavigationEffect()
 }

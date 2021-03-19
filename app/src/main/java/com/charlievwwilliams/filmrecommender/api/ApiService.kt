@@ -27,6 +27,12 @@ interface ApiService {
 
     @GET("movies/")
     suspend fun getRecommendations(
-        @Query("id") id: String
+        @Query("id") id: String,
+        @Query("title") title: Boolean,
+        @Query("genres") genres: Boolean,
+        @Query("production_companies") productionCompanies: Boolean,
+        @Query("spoken_languages") spokenLanguages: Boolean,
+        @Query("keywords") keywords: Boolean,
+        @Query("credits") credits: Boolean
     ): Django
 }
