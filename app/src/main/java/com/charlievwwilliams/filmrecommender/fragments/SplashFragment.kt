@@ -11,6 +11,8 @@ import com.charlievwwilliams.filmrecommender.R
 import com.charlievwwilliams.filmrecommender.databinding.FragmentSplashBinding
 import com.charlievwwilliams.filmrecommender.extensions.observeEvent
 import com.charlievwwilliams.filmrecommender.viewmodels.SplashViewModel
+import com.charlievwwilliams.filmrecommender.viewstates.SplashNavigationEffect.NavigateToAppEffect
+import com.charlievwwilliams.filmrecommender.viewstates.SplashViewEvent.*
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class SplashFragment : Fragment() {
@@ -33,8 +35,6 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = getViewModel()
-        setupViewState()
-        setupViewEvents()
         setupNavigationEffects()
         setupAnimation()
     }
@@ -48,27 +48,15 @@ class SplashFragment : Fragment() {
             override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {}
 
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
-                navigateToApp()
+                viewModel.onEvent(AnimationCompleteEvent)
             }
         })
-    }
-
-    private fun setupViewState() {
-        viewModel.viewState().observe(viewLifecycleOwner, { viewState ->
-            // TODO: Make all the splash stuff follow MVVM
-        })
-    }
-
-    private fun setupViewEvents() {
-        arguments?.let {
-
-        }
     }
 
     private fun setupNavigationEffects() {
         viewModel.getNavigationEffect().observeEvent(viewLifecycleOwner, {
             when (it) {
-
+                is NavigateToAppEffect -> navigateToApp()
             }
         })
     }

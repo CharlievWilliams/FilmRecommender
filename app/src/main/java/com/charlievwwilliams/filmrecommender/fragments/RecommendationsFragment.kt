@@ -96,6 +96,6 @@ class RecommendationsFragment : Fragment(), MyAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(id: String) {
-        TODO("Not yet implemented")
+        return
     }
 }

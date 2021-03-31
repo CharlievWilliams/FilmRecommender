@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:textSize="28dp"
+        android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/posterImageView"
         app:layout_constraintStart_toStartOf="parent"
@@ -108,8 +108,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="Recommendation Criteria"
-        android:textSize="22dp"
+        android:text="@string/recommendation_criteria"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
@@ -135,7 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Title"
+            android:text="@string/title"
             app:checkedIconEnabled="true" />
 
         <com.google.android.material.chip.Chip
@@ -144,7 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Genres"
+            android:text="@string/genres"
             app:checkedIconEnabled="true" />
 
         <com.google.android.material.chip.Chip
@@ -153,7 +153,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Production Companies"
+            android:text="@string/production_companies"
             app:checkedIconEnabled="true" />
 
         <com.google.android.material.chip.Chip
@@ -162,7 +162,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Spoken Languages"
+            android:text="@string/spoken_languages"
             app:checkedIconEnabled="true" />
 
         <com.google.android.material.chip.Chip
@@ -171,7 +171,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Keywords"
+            android:text="@string/keywords"
             app:checkedIconEnabled="true" />
 
         <com.google.android.material.chip.Chip
@@ -180,7 +180,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Credits"
+            android:text="@string/credits"
             app:checkedIconEnabled="true" />
 
     </com.google.android.material.chip.ChipGroup>
@@ -193,7 +193,7 @@
         android:background="@color/classic_purple"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        android:text="Get Recommendations"
+        android:text="@string/get_recommendations"
         android:textColor="@android:color/white"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"

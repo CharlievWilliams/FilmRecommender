@@ -7,11 +7,14 @@ import com.charlievwwilliams.filmrecommender.api.RetrofitInstance
 import com.charlievwwilliams.filmrecommender.extensions.Event
 import com.charlievwwilliams.filmrecommender.model.search.Search
 import com.charlievwwilliams.filmrecommender.utils.Constants.Companion.API_KEY
-import com.charlievwwilliams.filmrecommender.viewstates.*
+import com.charlievwwilliams.filmrecommender.viewstates.MainNavigationEffect
 import com.charlievwwilliams.filmrecommender.viewstates.MainNavigationEffect.NavigateToResultEffect
+import com.charlievwwilliams.filmrecommender.viewstates.MainViewEffect
 import com.charlievwwilliams.filmrecommender.viewstates.MainViewEffect.FilmSearchedEffect
 import com.charlievwwilliams.filmrecommender.viewstates.MainViewEffect.OpenCameraEffect
+import com.charlievwwilliams.filmrecommender.viewstates.MainViewEvent
 import com.charlievwwilliams.filmrecommender.viewstates.MainViewEvent.*
+import com.charlievwwilliams.filmrecommender.viewstates.MainViewState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main

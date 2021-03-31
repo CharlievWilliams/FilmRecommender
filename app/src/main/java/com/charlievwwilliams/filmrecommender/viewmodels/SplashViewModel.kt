@@ -4,22 +4,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.charlievwwilliams.filmrecommender.extensions.Event
-import com.charlievwwilliams.filmrecommender.viewstates.SearchResultNavigationEffect
-import com.charlievwwilliams.filmrecommender.viewstates.SearchResultViewEffect
-import com.charlievwwilliams.filmrecommender.viewstates.SearchResultViewState
+import com.charlievwwilliams.filmrecommender.viewstates.SplashNavigationEffect
 import com.charlievwwilliams.filmrecommender.viewstates.SplashViewEvent
+import com.charlievwwilliams.filmrecommender.viewstates.SplashViewEvent.AnimationCompleteEvent
 
 class SplashViewModel : ViewModel() {
 
-    private val viewState: MutableLiveData<SearchResultViewState> = MutableLiveData()
-    private val navigationEffect = MutableLiveData<Event<SearchResultNavigationEffect>>()
-    private val viewEffect = MutableLiveData<Event<SearchResultViewEffect>>()
+    private val navigationEffect = MutableLiveData<Event<SplashNavigationEffect>>()
 
     fun onEvent(event: SplashViewEvent) {
-
+        when (event) {
+            is AnimationCompleteEvent -> navigationEffect.value =
+                Event(SplashNavigationEffect.NavigateToAppEffect)
+        }
     }
 
-    fun viewState(): LiveData<SearchResultViewState> = viewState
-    fun getNavigationEffect(): LiveData<Event<SearchResultNavigationEffect>> = navigationEffect
-    fun getViewEffect(): LiveData<Event<SearchResultViewEffect>> = viewEffect
+    fun getNavigationEffect(): LiveData<Event<SplashNavigationEffect>> = navigationEffect
 }

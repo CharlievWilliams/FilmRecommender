@@ -56,8 +56,7 @@ class RecommendationsViewModel : ViewModel() {
             )
             withContext(Dispatchers.Main) {
                 viewState.value = RecommendationsViewState(isLoading = false)
-                viewEffect.value =
-                    Event(ScreenLoadedEffect(result)) // TODO: Do something with these
+                viewEffect.value = Event(ScreenLoadedEffect(result))
             }
         }
     }

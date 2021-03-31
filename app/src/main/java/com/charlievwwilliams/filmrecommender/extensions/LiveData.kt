@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 
 fun <T> LiveData<Event<T>>.observeEvent(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
-    observe(lifecycleOwner, Observer { event ->
+    observe(lifecycleOwner, { event ->
         event.getContentIfNotHandled()?.let {
             observer.onChanged(it)
         }

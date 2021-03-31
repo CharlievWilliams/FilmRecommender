@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">FilmRecommender</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enter_a_film_title">Enter a film title…</string>
+    <string name="or_scan_a_poster">Or Scan A Poster</string>
+    <string name="recommendation_criteria">Recommendation Criteria</string>
+    <string name="title">Title</string>
+    <string name="genres">Genres</string>
+    <string name="production_companies">Production Companies</string>
+    <string name="spoken_languages">Spoken Languages</string>
+    <string name="keywords">Keywords</string>
+    <string name="credits">Credits</string>
+    <string name="get_recommendations">Get Recommendations</string>
+    <string name="logo">Logo</string>
 </resources>
