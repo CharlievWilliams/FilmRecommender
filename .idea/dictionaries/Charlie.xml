@@ -6,6 +6,7 @@
       <w>filmrecommender</w>
       <w>imdb</w>
       <w>recommender</w>
+      <w>tmdbid</w>
     </words>
   </dictionary>
 </component>
